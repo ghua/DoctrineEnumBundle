@@ -11,6 +11,7 @@
 namespace Fresh\DoctrineEnumBundle\DBAL\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
+use Doctrine\DBAL\Platforms\PostgreSqlPlatform;
 use Doctrine\DBAL\Platforms\SqlitePlatform;
 use Doctrine\DBAL\Types\Type;
 
@@ -70,6 +71,10 @@ abstract class AbstractEnumType extends Type
             return sprintf('TEXT CHECK(%s IN (%s))', $fieldDeclaration['name'], $values);
         }
 
+        if ($platform instanceof PostgreSqlPlatform) {
+            return sprintf('%s', $this->getName());
+        }
+
         return sprintf('ENUM(%s)', $values);
     }
 
@@ -79,6 +84,32 @@ abstract class AbstractEnumType extends Type
     public function requiresSQLCommentHint(AbstractPlatform $platform)
     {
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function requiredInitialization()
+    {
+        return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSqlInitialize()
+    {
+        $values = implode(
+            ', ',
+            array_map(
+                function ($value) {
+                    return "'{$value}'";
+                },
+                $this->getValues()
+            )
+        );
+
+        return sprintf('CREATE TYPE %s AS ENUM (%s)', $this->getName(), $values);
     }
 
     /**

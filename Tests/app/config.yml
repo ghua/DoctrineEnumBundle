@@ -1,0 +1,22 @@
+framework:
+    secret:          secret
+    test: ~
+    router:          false
+    form:            false
+    csrf_protection: false
+    session:         ~
+    validation:      { enable_annotations: false }
+    templating:      false
+
+doctrine:
+    dbal:
+        driver:   pdo_sqlite
+        path: %kernel.root_dir%/cache/test/test.db
+        dbname: %kernel.root_dir%/cache/test/test.db
+        charset:  UTF8
+        types:
+            BasketballPositionType: Fresh\DoctrineEnumBundle\Fixtures\DBAL\Types\BasketballPositionType
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_mapping: true
+

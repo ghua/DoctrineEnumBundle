@@ -40,4 +40,12 @@ class BasketballPositionType extends AbstractEnumType
         self::POWER_FORWARD  => 'Power forward',
         self::CENTER         => 'Center'
     ];
+
+    /**
+     * {@inheritdoc}
+     */
+    public function requiredInitialization()
+    {
+        return true;
+    }
 }
