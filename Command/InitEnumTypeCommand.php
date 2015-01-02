@@ -49,7 +49,7 @@ class InitEnumTypeCommand extends ContainerAwareCommand {
 
                 $statement = $type->getSqlInitialize();
                 if ($dumpSqlOption) {
-                    $output->writeln($statement);
+                    $output->writeln($statement . ';');
                 } else {
                     $connection->exec($statement);
                 }

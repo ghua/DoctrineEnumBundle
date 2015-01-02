@@ -34,7 +34,7 @@ class InitEnumTypeCommandTest extends KernelTestCase
 
         $display = $commandTester->getDisplay();
 
-        $this->assertContains("CREATE TYPE BasketballPositionType AS ENUM ('PG', 'SG', 'SF', 'PF', 'C')", $display);
+        $this->assertContains("CREATE TYPE BasketballPositionType AS ENUM ('PG', 'SG', 'SF', 'PF', 'C');", $display);
     }
 
 }
