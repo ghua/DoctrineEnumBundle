@@ -16,7 +16,8 @@ use Doctrine\DBAL\Types\Type;
  *
  * @author  Semyon Velichko <semyon@velichko.net>
  */
-class InitEnumTypeCommand extends ContainerAwareCommand {
+class InitEnumTypeCommand extends ContainerAwareCommand
+{
 
     /**
      * @inheritdoc
@@ -26,8 +27,7 @@ class InitEnumTypeCommand extends ContainerAwareCommand {
         $this
             ->setName('doctrine:type:init')
             ->setDescription('Executes (or dumps) the SQL needed to update the database types to match the current mapping metadata')
-            ->addOption('dump-sql', null, InputOption::VALUE_NONE, 'Dumps the generated SQL statements to the screen (does not execute them).')
-        ;
+            ->addOption('dump-sql', null, InputOption::VALUE_NONE, 'Dumps the generated SQL statements to the screen (does not execute them).');
     }
 
     /**
@@ -43,7 +43,7 @@ class InitEnumTypeCommand extends ContainerAwareCommand {
         foreach ($typeMap as $name => $typeClass) {
             $type = Type::getType($name);
             if ($type instanceof AbstractEnumType) {
-                if(!$type->requiredInitialization()) {
+                if (!$type->requiredInitialization()) {
                     continue;
                 }
 
